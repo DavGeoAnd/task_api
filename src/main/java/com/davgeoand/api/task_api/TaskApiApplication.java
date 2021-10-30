@@ -1,10 +1,11 @@
 package com.davgeoand.api.task_api;
 
-import actuator.AppMetrics;
+import actuator.AppMetricExportAutoConfiguration;
 import audit.AppInterceptor;
 import audit.Auditor;
 import audit.InterceptorAppConfig;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @PropertySource("apiBase.properties")
-@Import({AppInterceptor.class, InterceptorAppConfig.class, AppMetrics.class, Auditor.class})
+@Import({AppInterceptor.class, InterceptorAppConfig.class, Auditor.class})
+@ImportAutoConfiguration({AppMetricExportAutoConfiguration.class})
 @SpringBootApplication
 @RestController
 public class TaskApiApplication {

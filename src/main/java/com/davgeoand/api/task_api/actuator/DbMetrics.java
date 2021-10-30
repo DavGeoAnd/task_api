@@ -1,6 +1,6 @@
 package com.davgeoand.api.task_api.actuator;
 
-import actuator.AppMetrics;
+import actuator.AppMetricExportAutoConfiguration;
 import io.micrometer.core.instrument.Gauge;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class DbMetrics {
     @PostConstruct
     public void addDbMetrics() {
         log.info("Adding task data database metric");
-        Gauge.builder("task_data_db_health", () -> healthEndpoint.healthForPath("TaskDataDB").getStatus() == Status.UP ? 1 : 0)
-                .description("task data db connection status").register(AppMetrics.getMeterRegistry());
+        Gauge.builder("task.data.db.health", () -> healthEndpoint.healthForPath("TaskDataDB").getStatus() == Status.UP ? 1 : 0)
+                .description("task data db connection status").register(AppMetricExportAutoConfiguration.getAppMetricMeterRegistry());
     }
 }
