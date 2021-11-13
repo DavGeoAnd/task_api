@@ -15,6 +15,10 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    private void sendToAuditor(String messageType, String message) {
+        Auditor.auditMessageString(messageType, message);
+    }
+
     public UserResponse saveUser(User user) {
         log.info("Saving a new user");
         UserResponse response = new UserResponse();
@@ -26,7 +30,7 @@ public class UserService {
             log.error(e.getMessage());
             response.setMessage(e.getMessage());
         }
-        Auditor.requestStatusMessage(response.getMessage());
+        sendToAuditor("statusMessage", response.getMessage());
         return response;
     }
 
@@ -41,7 +45,7 @@ public class UserService {
             log.error(e.getMessage());
             response.setMessage(e.getMessage());
         }
-        Auditor.requestStatusMessage(response.getMessage());
+        sendToAuditor("statusMessage", response.getMessage());
         return response;
     }
 
@@ -62,7 +66,7 @@ public class UserService {
             log.error(e.getMessage());
             response.setMessage(e.getMessage());
         }
-        Auditor.requestStatusMessage(response.getMessage());
+        sendToAuditor("statusMessage", response.getMessage());
         return response;
     }
 
@@ -82,7 +86,7 @@ public class UserService {
             log.error(e.getMessage());
             response.setMessage(e.getMessage());
         }
-        Auditor.requestStatusMessage(response.getMessage());
+        sendToAuditor("statusMessage", response.getMessage());
         return response;
     }
 
@@ -106,7 +110,7 @@ public class UserService {
             log.error(e.getMessage());
             response.setMessage(e.getMessage());
         }
-        Auditor.requestStatusMessage(response.getMessage());
+        sendToAuditor("statusMessage", response.getMessage());
         return response;
     }
 }
