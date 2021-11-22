@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <RollingFile name="LogToFile" fileName="logs/app.log" filePattern="logs/app.%d{dd-MMM}.log.gz"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <Pattern>time=%d{yyyy-MM-dd HH:mm:ss.SSS} thread=%t level=%level classLine=%c{1.}:%L message=%msg%n
+                </Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="LogToFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="applicationProps">application</Property>
+    </Properties>
+    <Appenders>
+        <Kafka name="Kafka" topic="appLog">
+            <PatternLayout>
+                <Pattern>
+                    {
+                    "appname":"${bundle:${applicationProps}:application.name}",
+                    "env":"${sys:spring.profiles.active}",
+                    "logTime":"%d{yyyy-MM-dd HH:mm:ss.SSS}",
+                    "threadName":"%t",
+                    "logLevel":"%level",
+                    "classLine":"%c{1.}:%L",
+                    "message":"%enc{%msg}{JSON}",
+                    "exception":"%enc{%throwable}{JSON}"
+                    }%n
+                </Pattern>
+            </PatternLayout>
+            <Property name="bootstrap.servers">[::1]:9092</Property>
+        </Kafka>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Kafka"/>
+        </Root>
+    </Loggers>
+</Configuration>
